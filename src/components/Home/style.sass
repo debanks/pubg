@@ -1,0 +1,61 @@
+@import '../../_variables.sass'
+
+.Home
+  &.row
+    margin-left: 0
+    margin-right: 0
+  .circles
+    .circle
+      padding: 5px
+      &.highlight
+        background: rgba(50,190,240,.2)
+      .circle-title
+        text-align: right
+  .circles,.scores,.options
+    .row
+      margin: 0
+  .record
+    padding: 10px 12px
+    border-bottom: 1px solid #ffffff
+    &.score
+      padding: 10px 5px 10px 12px
+    &:nth-child(even)
+      background: #f8f8f8
+    &:nth-child(odd)
+      background: #f2f2f2
+    &:hover
+      background: #ececec
+    &.highlight
+      background: rgba(200,130,130,.3)
+  .the-score
+    margin-right: 10px
+  .margin-bottom-20
+    margin-bottom: 20px
+  .margin-left-10
+    margin-left: 10px
+  .small-btns
+    padding: 0px 6px
+    height: 24px
+    margin-left: 5px
+    font-size: 18px
+    svg
+      font-size: 14px
+      margin-top: -4px
+  .align-right
+    text-align: right
+.custom-modal
+  .circle-select
+    margin: 5px
+    label
+      margin-right: 5px
+  .options
+    margin: 5px -15px
+    input, textarea
+      width: 100%
+    textarea
+      height: 250px
+  .full
+    width: 100%
+    height: 300px
+
+  

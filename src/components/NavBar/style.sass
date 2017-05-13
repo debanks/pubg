@@ -1,0 +1,43 @@
+@import '../../_variables.sass'
+
+.NavBar
+  margin-bottom: 20px
+  background-color: rgba($theme, .9)
+  color: #fff
+  .app-name
+    font-size: 32px
+    margin: 5px 0 5px 20px
+    color: #fff
+  .title
+    line-height: 50px
+    overflow: hidden
+  .title svg
+    margin-top: -3px
+
+  .nav-links
+    height: 50px
+    text-align: right
+    padding: 15px 15px 0 0
+    .dropdown
+      margin-right: 30px
+      line-height: 50px
+    a
+      color: $theme
+      text-decoration: none
+      &.active
+        color: #ffffff
+      &.logout
+        margin: 0px 10px
+        font-size: 18px
+    button
+      color: #fff
+      text-decoration: none
+
+  .dragon
+    color: rgba( 255, 255, 255, .2 )
+    font-size: 200px
+    height: 62px
+    width: 66px
+    position: relative
+    top: -25px
+    left: -140px

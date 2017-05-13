@@ -1,0 +1,15 @@
+version: 0.0
+
+os: linux
+
+files:
+  - source: /
+    destination: /tmp/build
+
+hooks:
+  BeforeInstall:
+    - location: infra/scripts/BeforeInstall.sh
+      runas: root
+  AfterInstall:
+    - location: infra/scripts/AfterInstall.sh
+      runas: root

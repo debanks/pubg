@@ -1,0 +1,123 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins|Nunito+Sans)
+@import '_mixins.scss'
+@import '_variables.sass'
+
+html,body
+  min-height: 100%
+
+body
+  margin: 0
+  padding: 0
+  font-family: 'Poppins', sans-serif
+
+.align-right
+  text-align: right
+.align-center
+  text-align: center
+
+.capitalize
+  text-transform: capitalize
+
+.spin
+  -webkit-animation: spin 4s linear infinite
+  -moz-animation: spin 4s linear infinite
+  animation: spin 4s linear infinite
+
+a:hover
+  text-decoration: none !important
+
+.numbers
+  font-family: 'Nunito Sans'
+
+.modal
+  .dropdown-menu
+    max-height: 300px
+    overflow: auto
+.form-control, .btn
+  border-radius: 0
+  box-shadow: none
+
+.main-content
+  padding: 0 5%
+
+.slide-container
+  position: fixed
+  width: 100%
+  top: 0
+  left: 0
+  z-index: 20000
+  background: #ffffff
+  bottom: 0
+  overflow: auto
+  &.slide-open
+    transform: translateY(-100%)
+    &.slide-enter
+      transform: translateY(0%)
+      transition: transform 1000ms ease-in-out
+  &.slide-leave
+    transform: translateY(-100%)
+    transition: transform 1000ms ease-in-out
+  .slide
+    .slide-header
+      z-index: 20001
+      height: 50px
+      background: $grey
+      position: fixed
+      top: 0
+      left: 0
+      width: 100%
+      .slide-title
+        font-size: 24px
+        line-height: 50px
+        padding-left: 20px
+        color: $theme
+        .slide-options
+          .slide-option
+            font-size: 42px
+            padding: 0 5px
+            height: 50px
+            box-sizing: border-box
+            cursor: pointer
+            display: inline-block
+            color: $theme
+            &.smaller
+              font-size: 32px
+              padding: 3px 15px
+            &.up
+              svg
+                margin-top: -5px
+            &:hover
+              background: lighten($grey, 10%)
+            &.close-btn
+              background: $theme
+              color: #ffffff
+              &:hover
+                background: lighten($theme, 10%)
+    .slide-content
+      padding: 0 5%
+      padding-top: 90px
+      padding-bottom: 20px
+      &.row
+        margin: 0
+a
+  color: inherit
+.red
+  color: $theme
+.green
+  color: $green
+.orange, .yellow
+  color: $yellow
+
+.modal,.tooltip
+  z-index: 30001
+
+@-moz-keyframes spin
+  100%
+    -moz-transform: rotate(360deg)
+@-webkit-keyframes spin
+  100%
+    -webkit-transform: rotate(360deg)
+@keyframes spin
+  100%
+    -webkit-transform: rotate(360deg)
+    transform: rotate(360deg)
