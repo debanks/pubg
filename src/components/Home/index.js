@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import classnames from 'classnames';
 import './style.sass';
-import {Button} from 'react-bootstrap';
+import {Button,OverlayTrigger,Tooltip} from 'react-bootstrap';
 import OptionModal from './Modals/OptionModal';
 import PlayerModal from './Modals/PlayerModal';
 import PortModal from './Modals/PortModal';
@@ -51,35 +51,43 @@ class Home extends Component {
         return {
             0: {
                 name: "First",
-                value: ""
+                value: "",
+                description: ""
             },
             1: {
                 name: "Second",
-                value: ""
+                value: "",
+                description: ""
             },
             2: {
                 name: "Third",
-                value: ""
+                value: "",
+                description: ""
             },
             3: {
                 name: "Fourth",
-                value: ""
+                value: "",
+                description: ""
             },
             4: {
                 name: "Fifth",
-                value: ""
+                value: "",
+                description: ""
             },
             5: {
                 name: "Sixth",
-                value: ""
+                value: "",
+                description: ""
             },
             6: {
                 name: "Seventh",
-                value: ""
+                value: "",
+                description: ""
             },
             7: {
                 name: "Eighth",
-                value: ""
+                value: "",
+                description: ""
             }
         };
     }
@@ -201,6 +209,7 @@ class Home extends Component {
         var circles = this.state.circles;
 
         circles[circle]['value'] = this.state.options[parseInt(votes[winner],10)]['name'];
+        circles[circle]['description'] = this.state.options[parseInt(votes[winner],10)]['description'];
         var _this = this;
         if (this.state.timeout) {
             clearTimeout(this.state.timeout);
@@ -224,9 +233,15 @@ class Home extends Component {
                         <Button className="btn btn-default margin-bottom-20" onClick={this.restart}>Restart</Button>
                         {this.state.circle < 7 && <Button bsStyle="success" className="btn btn-default margin-bottom-20 margin-left-10" onClick={this.roulette}>Roll</Button>}
                         {Object.keys(this.state.circles).map(function(key) {
+                            let tooltip = <Tooltip id={key}>{this.state.circles[key].description}</Tooltip>;
                             return <div key={key} className={"circle row " + (this.state.circle == key ? 'highlight' : '')}>
                                 <span className="col-md-4 circle-title numbers">{"Rule " + (parseInt(key,10)+1) + ":"}</span>
-                                <span className="col-md-8 circle-rule">{this.state.circles[key].value}</span>
+                                <span className="col-md-8 circle-rule">
+                                    {this.state.circles[key].description !== '' && <OverlayTrigger placement="right" overlay={tooltip}>
+                                        <span>{this.state.circles[key].value}</span>
+                                    </OverlayTrigger>}
+                                    {this.state.circles[key].description === '' && <span>{this.state.circles[key].value}</span>}
+                                </span>
                             </div>
                         }, this)}
                     </div>
