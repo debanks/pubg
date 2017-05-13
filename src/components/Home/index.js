@@ -17,6 +17,8 @@ class Home extends Component {
 
         var circles = this.defaultCircles();
 
+        var theDefault = '{"0":{"name":"Spooked","description":"Speak over voice chat when hearing enemy footsteps","weights":{"0":"2","1":"2","2":1,"3":"1","4":"1","5":"2","6":"2","7":"3"}},"1":{"name":"No Shotguns","description":"","weights":{"0":"2","1":"2","2":1,"3":1,"4":"2","5":"2","6":"2","7":"3"}},"2":{"name":"Echo","description":"Anytime someone says something in all chat the other 2 must say it in all chat","weights":{"0":"4","1":"2","2":"1","3":"1","4":"2","5":"2","6":"2","7":"3"}},"3":{"name":"Strip","description":"Remove any non-weapon equipment","weights":{"0":1,"1":1,"2":1,"3":1,"4":1,"5":1,"6":1,"7":1}},"4":{"name":"No ARs","description":"","weights":{"0":1,"1":"2","2":"2","3":1,"4":1,"5":"2","6":"2","7":1}},"5":{"name":"Tourist","description":" travel to the closest city","weights":{"0":1,"1":1,"2":1,"3":1,"4":1,"5":1,"6":1,"7":1}},"6":{"name":"Pistol Only","description":"","weights":{"0":"2","1":1,"2":"2","3":"2","4":1,"5":1,"6":1,"7":1}},"7":{"name":"United","description":"Stay within the line of sight of your teammates","weights":{"0":"0","1":1,"2":1,"3":1,"4":1,"5":1,"6":1,"7":1}},"8":{"name":"Hotwire","description":"Actively try to find and drive in a vehicle","weights":{"0":1,"1":1,"2":1,"3":1,"4":1,"5":1,"6":1,"7":1}},"9":{"name":"No Proning","description":"","weights":{"0":1,"1":1,"2":1,"3":1,"4":1,"5":1,"6":1,"7":1}},"10":{"name":"Broadcast","description":"All chatting must be over all chat","weights":{"0":"4","1":"2","2":1,"3":1,"4":"2","5":"3","6":"3","7":"3"}},"11":{"name":"Spelunker ","description":"Explore any building within a block","weights":{"0":1,"1":1,"2":1,"3":1,"4":1,"5":1,"6":1,"7":1}},"12":{"name":"No Crouching","description":"","weights":{"0":1,"1":1,"2":1,"3":1,"4":1,"5":1,"6":1,"7":1}},"13":{"name":"Hitchhike","description":"Stay within 1 block of major road","weights":{"0":1,"1":1,"2":1,"3":1,"4":1,"5":1,"6":1,"7":1}},"14":{"name":"Swap","description":"Give a teammate one of your weapons","weights":{"0":1,"1":1,"2":1,"3":1,"4":1,"5":1,"6":1,"7":1}}}';
+
         this.state = {
             circles: circles,
             scores: localStorage.getItem('scores') ? JSON.parse(localStorage.getItem('scores')): {},
@@ -24,7 +26,7 @@ class Home extends Component {
             showOptionModal: false,
             showScoreModal: false,
             showPortModal: false,
-            options: localStorage.getItem('options') ? JSON.parse(localStorage.getItem('options')): {},
+            options: localStorage.getItem('options') ? JSON.parse(localStorage.getItem('options')): JSON.parse(theDefault),
             selectedOption: false,
             selectedOptionKey: 0,
             selectedPlayer: false,
@@ -187,6 +189,7 @@ class Home extends Component {
         try {
             var json = JSON.parse(options);
             this.setState({options: json});
+            localStorage.setItem('options', JSON.stringify(this.state.options));
         } catch (e) {
 
         }
@@ -234,8 +237,8 @@ class Home extends Component {
                         {this.state.circle < 7 && <Button bsStyle="success" className="btn btn-default margin-bottom-20 margin-left-10" onClick={this.roulette}>Roll</Button>}
                         {Object.keys(this.state.circles).map(function(key) {
                             let tooltip = <Tooltip id={key}>{this.state.circles[key].description}</Tooltip>;
-                            return <div key={key} className={"circle row " + (this.state.circle == key ? 'highlight' : '')}>
-                                <span className="col-md-4 circle-title numbers">{"Rule " + (parseInt(key,10)+1) + ":"}</span>
+                            return <div key={key} className={"record row " + (this.state.circle == key ? 'highlight' : '')}>
+                                <span className="col-md-4 align-right numbers">{"Rule " + (parseInt(key,10)+1) + ":"}</span>
                                 <span className="col-md-8 circle-rule">
                                     {this.state.circles[key].description !== '' && <OverlayTrigger placement="right" overlay={tooltip}>
                                         <span>{this.state.circles[key].value}</span>
