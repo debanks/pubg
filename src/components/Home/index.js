@@ -217,7 +217,7 @@ class Home extends Component {
         const {className, ...props} = this.props;
 
         return (
-            <DocumentTitle title="Home" {...props}>
+            <DocumentTitle title="PUBG Roulette - Home" {...props}>
 
                 <div className={ classnames('Home', className, 'row') }>
                     <div className="col-md-3 circles">
