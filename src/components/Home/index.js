@@ -264,8 +264,8 @@ class Home extends Component {
                                     <div className="records-title">Players</div>
                                     {Object.keys(this.state.scores).map(function(key) {
                                         return <div key={key} className={"record score row "}>
-                                            <span className="col-md-7 score-title">{this.state.scores[key].name}</span>
-                                            <span className="col-md-5 score-value align-right">
+                                            <span className="col-md-5 score-title">{this.state.scores[key].name}</span>
+                                            <span className="col-md-7 score-value align-right">
                                         <span className="numbers the-score">{this.state.scores[key].score}</span>
                                         <Button className="small-btns" bsStyle="info" onClick={(e) => this.updateScore(e,key,1)}>+</Button>
                                         <Button className="small-btns" bsStyle="warning" onClick={(e) => this.updateScore(e,key,-1)}>-</Button>
