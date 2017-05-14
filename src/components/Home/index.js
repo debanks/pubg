@@ -249,8 +249,11 @@ class Home extends Component {
                                 <div className="records-container">
                                     <div className="records-title">Rules</div>
                                     {Object.keys(this.state.options).map(function(key) {
+                                        let tooltip = <Tooltip id={key}>{this.state.options[key].description}</Tooltip>;
                                         return <div key={key} className={"record " + (this.state.highlightedOption == key ? 'highlight' : '')}>
-                                            <span className="option-title">{this.state.options[key].name}</span>
+                                            <OverlayTrigger placement="right" overlay={tooltip}>
+                                                <span className="option-title">{this.state.options[key].name}</span>
+                                            </OverlayTrigger>
                                             <div className="pull-right">
                                                 <Button className="small-btns" bsStyle="primary" onClick={(e) => this.handleOption(e, key)}><FaCog /></Button>
                                                 <Button className="small-btns" bsStyle="danger" onClick={(e) => this.handleDeleteOption(e, key)}><FaClose /></Button>
