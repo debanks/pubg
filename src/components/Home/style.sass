@@ -17,7 +17,9 @@
       margin: 0
   .record
     padding: 10px 12px
-    border-bottom: 1px solid #background
+    border-bottom: 1px solid $background
+    &.record-scores
+      padding: 10px
     &.score
       padding: 10px 5px 10px 12px
     &:nth-child(even)
@@ -28,6 +30,8 @@
       background: #676767
     &.highlight
       background: rgba(200,130,130,.8)
+    .circle-rule
+      margin-left: 10px
   .the-score
     margin-right: 10px
   .margin-bottom-20
@@ -44,6 +48,31 @@
       margin-top: -4px
   .align-right
     text-align: right
+  .large-btn
+    width: 100%
+    font-size: 22px
+  .option-container
+    border: 1px solid #474a52
+    width: 100%
+    border-radius: 3px
+    a
+      display: block
+      padding: 10px 20px
+      width: 100%
+      cursor: pointer
+      &:hover
+        color: $yellow
+      &.highlight
+        animation: pulse 2s infinite
+      &:not(:first-child)
+        border-top: 1px solid #474a52
+  .records-container
+    border: 1px solid #474a52
+    margin-bottom: 20px
+    .records-title
+      padding: 3px 10px
+      font-size: 22px
+      color: $yellow
 .custom-modal
   .circle-select
     margin: 5px
@@ -59,4 +88,11 @@
     width: 100%
     height: 300px
 
-  
+@keyframes pulse
+  0%
+    background-color: $background
+  50%
+    background-color: rgba(205,130,150,.4)
+  100%
+    background-color: $background
+

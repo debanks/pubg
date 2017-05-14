@@ -233,48 +233,71 @@ class Home extends Component {
 
                 <div className={ classnames('Home', className, 'row') }>
                     <div className="col-md-3 circles">
-                        <Button className="btn btn-default margin-bottom-20" onClick={this.restart}>Restart</Button>
-                        {this.state.circle < 7 && <Button bsStyle="success" className="btn btn-default margin-bottom-20 margin-left-10" onClick={this.roulette}>Roll</Button>}
-                        {Object.keys(this.state.circles).map(function(key) {
-                            let tooltip = <Tooltip id={key}>{this.state.circles[key].description}</Tooltip>;
-                            return <div key={key} className={"record row " + (this.state.circle == key ? 'highlight' : '')}>
-                                <span className="col-md-4 align-right numbers">{"Rule " + (parseInt(key,10)+1) + ":"}</span>
-                                <span className="col-md-8 circle-rule">
-                                    {this.state.circles[key].description !== '' && <OverlayTrigger placement="right" overlay={tooltip}>
-                                        <span>{this.state.circles[key].value}</span>
-                                    </OverlayTrigger>}
-                                    {this.state.circles[key].description === '' && <span>{this.state.circles[key].value}</span>}
-                                </span>
-                            </div>
-                        }, this)}
+                        {this.state.circle < 7 && <Button bsStyle="success" className="btn btn-default large-btn margin-bottom-20" onClick={this.roulette}>Roll</Button>}
+                        {this.state.circle > 6 && <Button bsStyle="warning" className="btn btn-default large-btn margin-bottom-20" disabled>Restart to Roll More</Button>}
+
+                        <div className="option-container">
+                            <a className={"the-btn" + (this.state.circle > 6 ? " highlight" : "")} onClick={this.restart}>Restart</a>
+                            <a className="the-btn" onClick={(e) => this.handlePlayer(e)}>Add Player</a>
+                            <a className="the-btn" onClick={(e) => this.handleOption(e)}>Add Option</a>
+                            <a className="the-btn" onClick={(e) => this.toggleModal(e, 'showPortModal', true)}>Import/Export</a>
+                        </div>
                     </div>
-                    <div className="col-md-5 spinner">
-                        <Button className="btn btn-default margin-bottom-20" onClick={(e) => this.handleOption(e)}>Add Option</Button>
-                        <Button className="btn btn-default margin-bottom-20 margin-left-10" onClick={(e) => this.toggleModal(e, 'showPortModal', true)}>Import/Export</Button>
-                        {Object.keys(this.state.options).map(function(key) {
-                            return <div key={key} className={"record " + (this.state.highlightedOption == key ? 'highlight' : '')}>
-                                <span className="option-title">{this.state.options[key].name}</span>
-                                <div className="pull-right">
-                                    <Button className="small-btns" bsStyle="primary" onClick={(e) => this.handleOption(e, key)}><FaCog /></Button>
-                                    <Button className="small-btns" bsStyle="danger" onClick={(e) => this.handleDeleteOption(e, key)}><FaClose /></Button>
+                    <div className="col-md-9">
+                        <div className="row">
+                            <div className="col-md-7 spinner">
+                                <div className="records-container">
+                                    <div className="records-title">Rules</div>
+                                    {Object.keys(this.state.options).map(function(key) {
+                                        return <div key={key} className={"record " + (this.state.highlightedOption == key ? 'highlight' : '')}>
+                                            <span className="option-title">{this.state.options[key].name}</span>
+                                            <div className="pull-right">
+                                                <Button className="small-btns" bsStyle="primary" onClick={(e) => this.handleOption(e, key)}><FaCog /></Button>
+                                                <Button className="small-btns" bsStyle="danger" onClick={(e) => this.handleDeleteOption(e, key)}><FaClose /></Button>
+                                            </div>
+                                        </div>
+                                    }, this)}
                                 </div>
                             </div>
-                        }, this)}
-                    </div>
-                    <div className="col-md-4 scores">
-                        <Button className="btn btn-default margin-bottom-20" onClick={(e) => this.handlePlayer(e)}>Add Player</Button>
-                        {Object.keys(this.state.scores).map(function(key) {
-                            return <div key={key} className={"record score row "}>
-                                <span className="col-md-7 score-title">{this.state.scores[key].name}</span>
-                                <span className="col-md-5 score-value align-right">
-                                    <span className="numbers the-score">{this.state.scores[key].score}</span>
-                                    <Button className="small-btns" bsStyle="info" onClick={(e) => this.updateScore(e,key,1)}>+</Button>
-                                    <Button className="small-btns" bsStyle="warning" onClick={(e) => this.updateScore(e,key,-1)}>-</Button>
-                                    <Button className="small-btns" bsStyle="danger" onClick={(e) => this.handleDeletePlayer(e, key)}><FaClose /></Button>
-                                </span>
+                            <div className="col-md-5 scores">
+                                <div className="records-container">
+                                    <div className="records-title">Players</div>
+                                    {Object.keys(this.state.scores).map(function(key) {
+                                        return <div key={key} className={"record score row "}>
+                                            <span className="col-md-7 score-title">{this.state.scores[key].name}</span>
+                                            <span className="col-md-5 score-value align-right">
+                                        <span className="numbers the-score">{this.state.scores[key].score}</span>
+                                        <Button className="small-btns" bsStyle="info" onClick={(e) => this.updateScore(e,key,1)}>+</Button>
+                                        <Button className="small-btns" bsStyle="warning" onClick={(e) => this.updateScore(e,key,-1)}>-</Button>
+                                        <Button className="small-btns" bsStyle="danger" onClick={(e) => this.handleDeletePlayer(e, key)}><FaClose /></Button>
+                                    </span>
+                                        </div>
+                                    }, this)}
+                                    {Object.keys(this.state.scores).length === 0 && <div className={"record score row "}>
+                                            <span className="col-md-12">No Players</span>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div className="records-container">
+                                    <div className="records-title">Current Game</div>
+                                    {Object.keys(this.state.circles).map(function(key) {
+                                        let tooltip = <Tooltip id={key}>{this.state.circles[key].description}</Tooltip>;
+                                        return <div key={key} className={"record record-scores " + (this.state.circle == key ? 'highlight' : '')}>
+                                            <span className="align-right numbers">{"Rule " + (parseInt(key,10)+1) + ":"}</span>
+                                            <span className="circle-rule">
+                                        {this.state.circles[key].description !== '' && <OverlayTrigger placement="left" overlay={tooltip}>
+                                            <span>{this.state.circles[key].value}</span>
+                                        </OverlayTrigger>}
+                                                {this.state.circles[key].description === '' && <span>{this.state.circles[key].value}</span>}
+                                    </span>
+                                        </div>
+                                    }, this)}
+                                </div>
                             </div>
-                        }, this)}
+                        </div>
                     </div>
+
                 { this.state.showOptionModal &&
                     <OptionModal show={this.state.showOptionModal} toggleModal={this.toggleModal} optionKey={this.state.selectedOptionKey} option={this.state.selectedOption} editOptions={this.editOptions}/>
                 }
